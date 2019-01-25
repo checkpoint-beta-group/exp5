@@ -14,7 +14,6 @@ import org.jpacman.framework.model.Direction;
  * that can be used for animations of the player and the monsters in Pacman.
  *
  * @author Arie van Deursen, Delft University of Technology, May 2007
- *
  */
 
 public class ImageLoader {
@@ -27,60 +26,62 @@ public class ImageLoader {
     /**
      * Animation sequence of images for the player.
      */
-    private Image[][] playerImage;  
-    
+    private Image[][] playerImage;
+
     /**
      * Width of the images.
      */
     private int width = -1;
-    
+
     /**
      * Height of the images.
      */
     private int height = -1;
-    
+
     /**
      * Create an empty (non intialized) image factory.
      */
     public ImageLoader() { /* Nothing needs to be done */ }
-    
+
     /**
      * Create an empty (non initialized) image factory
      * requiring that all images are of the given (width, height).
+     *
      * @param w requested image width
      * @param h requested image height
      */
-    public ImageLoader(int w, int h) { 
+    public ImageLoader(int w, int h) {
         width = w;
         height = h;
     }
-     
-    
+
+
     /**
      * Read images for player and monsters from file.
      * Different images exist for different phases of the animation.
+     *
      * @throws FactoryException if the images can't be found.
      */
     public void loadImages() throws FactoryException {
-    	try {
-    		monsterImage = new Image[]{
-    				getImage("Ghost1.gif"),
-    				getImage("Ghost2.gif") };
+        try {
+            monsterImage = new Image[]{
+                    getImage("Ghost1.gif"),
+                    getImage("Ghost2.gif")};
 
-    		String[] sequence = new String[]{"2", "3", "4", "3", "2"};
-    		playerImage = new Image[Direction.values().length][sequence.length + 1];
-    		for (Direction d : Direction.values()) {
-    			int dir = d.ordinal();
-    			playerImage[dir][0] = getImage("PacMan1.gif");
-    			for (int seq = 0; seq < sequence.length; seq++) {
-    				String name = "PacMan" + sequence[seq]
-    						+ d.toString().toLowerCase() + ".gif";
-    				playerImage[dir][seq + 1] = getImage(name);
-    			}
-    		}
-    	} catch (IOException io) {
-    		throw new FactoryException("Can't load images", io);
-    	}
+            String[] sequence = new String[]{"2", "3", "4", "3", "2"};
+            playerImage = new Image[Direction.values().length][sequence.length + 1];
+            for (Direction d : Direction.values()) {
+                int dir = d.ordinal();
+                playerImage[dir][0] = getImage("PacMan1.gif");
+                for (int seq = 0; seq < sequence.length; seq++) {
+                    String name = "PacMan" + sequence[seq]
+                            + d.toString().toLowerCase() + ".gif";
+                    playerImage[dir][seq + 1] = getImage(name);
+                }
+            }
+        } catch (IOException io) {
+            throw new FactoryException("Can't load images", io);
+        }
     }
 
     /**
@@ -106,8 +107,8 @@ public class ImageLoader {
     /**
      * Get a player (pizza slice) in the appropriate direction at the
      * given animation sequence.
-     * 
-     * @param dir Direction pacman is moving to.
+     *
+     * @param dir  Direction pacman is moving to.
      * @param anim Animation step
      * @return Player image in appropriate direction.
      */
@@ -122,6 +123,7 @@ public class ImageLoader {
 
     /**
      * Obtain a picture of a monster.
+     *
      * @param animationIndex counter indicating which animation to use.
      * @return The monster image at the given animation index.
      */
@@ -133,27 +135,27 @@ public class ImageLoader {
     /**
      * Obtain an image from a file / resource that can
      * be found on the classpath.
+     *
      * @param name The file containg, e.g., a .gif picture.
      * @return The corresponding Image.
      * @throws IOException If file can't be found.
      */
-    private Image getImage(String name) throws IOException {
+    private Image getImage(final String name) throws IOException {
         assert name != null;
-        
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
         URL picfile = cl.getResource(name);
         if (picfile == null) {
-            throw new IOException("Can't load image: "  + name);
+            throw new IOException("Can't load image: " + name);
         }
         Image result = new ImageIcon(picfile).getImage();
         assert result != null;
- 
         return resize(result);
     }
-    
-     
-    /**
+
+
+   /**
      * Resize a given image to the required dimension.
+     *
      * @param im The image
      * @return The resized image.
      */
@@ -161,7 +163,7 @@ public class ImageLoader {
         assert im != null;
         Image result = im;
         if (width > 0 && height > 0) {
-            int w = im.getWidth(null);        
+            int w = im.getWidth(null);
             int h = im.getHeight(null);
             if (w != width || h != height) {
                 result = im.getScaledInstance(width, height, java.awt.Image.SCALE_DEFAULT);

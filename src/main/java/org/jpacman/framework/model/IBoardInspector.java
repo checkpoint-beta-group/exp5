@@ -20,16 +20,16 @@ public interface IBoardInspector {
 	/**
 	 * The predefined set of sprite types.
 	 */
-	public enum SpriteType { 
+    enum SpriteType {
 		PLAYER, 
 		GHOST, 
 		FOOD, 
 		EMPTY, 
 		WALL, 
 		OTHER
-	};
-		
-	/**
+	}
+
+    /**
 	 * @param x 
 	 * @param y 
 	 * @return The sprite at location (x,y).
