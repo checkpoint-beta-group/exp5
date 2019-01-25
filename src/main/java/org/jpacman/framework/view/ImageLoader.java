@@ -27,9 +27,8 @@ public class ImageLoader {
      * Animation sequence of images for the player.
      */
     private Image[][] playerImage;
-
     /**
-     * Width of the images.
+     * * Width of the images.
      */
     private int width = -1;
 
@@ -50,7 +49,7 @@ public class ImageLoader {
      * @param w requested image width
      * @param h requested image height
      */
-    public ImageLoader(int w, int h) {
+    public ImageLoader(final int w, final int h) {
         width = w;
         height = h;
     }
@@ -112,7 +111,7 @@ public class ImageLoader {
      * @param anim Animation step
      * @return Player image in appropriate direction.
      */
-    public Image player(Direction dir, int anim) {
+    public Image player(final Direction dir, final int anim) {
         assert anim >= 0;
         Image img = null;
         int dirIndex = dir.ordinal();
@@ -127,7 +126,7 @@ public class ImageLoader {
      * @param animationIndex counter indicating which animation to use.
      * @return The monster image at the given animation index.
      */
-    public Image monster(int animationIndex) {
+    public Image monster(final int animationIndex) {
         assert animationIndex >= 0;
         return monsterImage[animationIndex % monsterAnimationCount()];
     }
@@ -159,14 +158,15 @@ public class ImageLoader {
      * @param im The image
      * @return The resized image.
      */
-    Image resize(Image im) {
+    Image resize(final Image im) {
         assert im != null;
         Image result = im;
         if (width > 0 && height > 0) {
             int w = im.getWidth(null);
             int h = im.getHeight(null);
             if (w != width || h != height) {
-                result = im.getScaledInstance(width, height, java.awt.Image.SCALE_DEFAULT);
+                result = im.getScaledInstance(width, height,
+                        java.awt.Image.SCALE_DEFAULT);
             }
         }
         assert result != null;
