@@ -52,7 +52,7 @@ public class BoardTileAtTest {
 		Object[][] values = new Object[][] {
 				// x-axis boundaries, y random inpoints
 				// left boundary
-				{ 2, 2, Direction.UP, 2, 1 },
+				{2, 2, Direction.UP, 2, 1 },
 				{ 2, 2, Direction.DOWN, 2, 3 },
 				{ 2, 2, Direction.LEFT, 1, 2 },
 				{ 2, 2, Direction.RIGHT, 3, 2 },
