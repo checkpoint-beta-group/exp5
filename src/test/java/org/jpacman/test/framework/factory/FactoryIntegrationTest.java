@@ -14,33 +14,34 @@ import org.junit.Test;
 
 public class FactoryIntegrationTest {
 
-	MapParser parser;
+    public static final int Y = 3;
+    MapParser parser;
 
-	private String[] map = new String[] { "#####", "#...#", "#GPG#", "#   #",
-			"#####" };
+    private String[] map = new String[]{"#####", "#...#", "#GPG#", "#   #",
+            "#####"};
 
-	@Before
-	public void setUp() {
-		IGameFactory factory = new DefaultGameFactory();
-		parser = new MapParser(factory);
-	}
+    @Before
+    public void setUp() {
+        IGameFactory factory = new DefaultGameFactory();
+        parser = new MapParser(factory);
+    }
 
-	@Test
-	public void testFullMap() throws FactoryException {
-		Game g = parser.parseMap(map);
-		Board b = g.getBoard();
+    @Test
+    public void testFullMap() throws FactoryException {
+        Game g = parser.parseMap(map);
+        Board b = g.getBoard();
 
-		// did we recognize the right sprites?
-		assertEquals(SpriteType.EMPTY, b.spriteTypeAt(1, 3));
-		assertEquals(SpriteType.PLAYER, b.spriteTypeAt(2, 2));
-		assertEquals(SpriteType.GHOST, b.spriteTypeAt(1, 2));
-		assertEquals(SpriteType.WALL, b.spriteTypeAt(0, 0));
-		assertEquals(SpriteType.FOOD, b.spriteTypeAt(1, 1));
+        // did we recognize the right sprites?
+        assertEquals(SpriteType.EMPTY, b.spriteTypeAt(1, Y));
+        assertEquals(SpriteType.PLAYER, b.spriteTypeAt(2, 2));
+        assertEquals(SpriteType.GHOST, b.spriteTypeAt(1, 2));
+        assertEquals(SpriteType.WALL, b.spriteTypeAt(0, 0));
+        assertEquals(SpriteType.FOOD, b.spriteTypeAt(1, 1));
 
-		// did we properly set the player?
-		assertEquals(g.getPlayer(), b.spriteAt(2, 2));
+        // did we properly set the player?
+        assertEquals(g.getPlayer(), b.spriteAt(2, 2));
 
-		// were all ghosts added?
-		assertEquals(2, g.getGhosts().size());
-	}
+        // were all ghosts added?
+        assertEquals(2, g.getGhosts().size());
+    }
 }
